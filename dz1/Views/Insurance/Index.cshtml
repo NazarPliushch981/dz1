@@ -1,0 +1,54 @@
+﻿@model dz1.Models.InsuranceViewModel
+
+<html>
+<head>
+    <title>Калькулятор</title>
+</head>
+<body>
+
+    <h2>Розрахунок</h2>
+
+    @if (Model != null && Model.ErrorMessage != null && Model.ErrorMessage != "")
+    {
+        <p style="color:red">@Model.ErrorMessage</p>
+    }
+
+    <form method="post" action="/Insurance/Index">
+
+        <p>
+            Об'єм двигуна (см3):<br />
+            <input type="number" name="EngineCapacity" value="@Model.EngineCapacity" />
+        </p>
+
+        <p>
+            Місто:<br />
+            <select name="CityType">
+                <option value="Odessa">Одеса</option>
+                <option value="LargeCity">Велике місто</option>
+                <option value="SmallTown">Інше</option>
+            </select>
+        </p>
+
+        <p>
+            Стаж водіння (років):<br />
+            <input type="number" name="DriverExperienceYears" value="@Model.DriverExperienceYears" />
+        </p>
+
+        <p>
+            <input type="checkbox" name="HasDiscountCategory" value="true" /> Є пільги
+        </p>
+
+        <br />
+        <input type="submit" value="Розрахувати" />
+
+    </form>
+
+    <hr />
+
+    @if (Model != null && Model.CalculatedPrice > 0)
+    {
+        <h3>Сума: @Model.CalculatedPrice грн</h3>
+    }
+
+</body>
+</html>
